@@ -1,5 +1,8 @@
 # vscode.nvim-modern
 
+[![test-deploy.yml](https://github.com/MartenBE/vscode.nvim-modern/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/MartenBE/vscode.nvim-modern/actions)
+![GitHub License](https://img.shields.io/github/license/MartenBE/vscode.nvim-modern)
+
 vscode.nvim-modern is a fork of [vscode.nvim](https://github.com/Mofiqul/vscode.nvim) with a few key differences:
 
 - **Faithful colors:** The palette tracks [VS Code's default Dark Modern and Light Modern themes](https://github.com/microsoft/vscode/tree/main/extensions/theme-defaults/themes) as closely as possible.
