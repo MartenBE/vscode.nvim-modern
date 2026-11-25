@@ -1,6 +1,6 @@
 -- Prints every highlight group the colorscheme sets for one background.
 
-local background = arg[1] or 'dark'
+local background = arg[1] or "dark"
 
 -- Must happen before the theme loads: assigning `background` afterwards
 -- re-sources the active colorscheme and runs the theme a second time.
@@ -22,7 +22,7 @@ vim.api.nvim_set_hl = function(ns, name, val)
     return real_set_hl(ns, name, val)
 end
 
-require('vscode').load(background)
+require("vscode").load(background)
 
 -- A dictionary in Lua has no guaranteed order, so we need this for determinism.
 local function sorted_keys(t)
@@ -47,12 +47,12 @@ for _, name in ipairs(sorted_keys(highlight_names)) do
     for _, attr in ipairs(sorted_keys(definition)) do
         local value = definition[attr]
 
-        if (attr == 'fg' or attr == 'bg' or attr == 'sp') and type(value) == 'number' then
-            value = string.format('#%06X', value)
+        if (attr == "fg" or attr == "bg" or attr == "sp") and type(value) == "number" then
+            value = string.format("#%06X", value)
         end
 
-        table.insert(parts, string.format('%s=%s', attr, tostring(value)))
+        table.insert(parts, string.format("%s=%s", attr, tostring(value)))
     end
 
-    io.write(string.format('%s, %s\n', name, table.concat(parts, ', ')))
+    io.write(string.format("%s, %s\n", name, table.concat(parts, ", ")))
 end

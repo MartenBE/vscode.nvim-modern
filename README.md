@@ -1,11 +1,17 @@
-<h1 align="center">vscode.nvim</h1>
+# vscode.nvim-modern
 
-vscode.nvim (formerly `codedark.nvim`) is a Lua port of [vim-code-dark](https://github.com/tomasiser/vim-code-dark) colorscheme for [neovim](https://github.com/neovim/neovim) with VScode's light and dark theme
+vscode.nvim-modern is a fork of [vscode.nvim](https://github.com/Mofiqul/vscode.nvim) with a few key differences:
 
-The colors follow VS Code's default **Dark Modern** and **Light Modern** themes: syntax colors come from Dark+ / Light+
-(which the Modern themes build on), editor and plugin UI colors from Dark Modern / Light Modern.
+- **Faithful colors:** The palette tracks [VS Code's default Dark Modern and Light Modern themes](https://github.com/microsoft/vscode/tree/main/extensions/theme-defaults/themes) as closely as possible.
+- **AI-assisted syncing:** Keeping colors in sync with VS Code by hand is tedious and error-prone, so updates are made with AI assistance against VS Code's main branch. Treating VS Code as the single source of truth also avoids choice paralysis and endless tweaking over individual colors.
+- **Snapshot testing:** Every change is captured in snapshots, making differences between commits easy to review and unintended changes easy to catch, for both humans and AI.
+- **Neovim only:** Support is limited to Neovim, since that's what the snapshot tests can verify.
+- **First-class light theme:** Light Modern gets the same care as Dark Modern rather than being an afterthought, thanks to a refactor that decouples variable names from their functionality.
+- **Frequent updates:** Releases come more often than upstream because [@MartenBE](https://github.com/MartenBE) uses this theme daily.
 
 ![VSCode.nvim](./demo.png)
+
+:warning: Neovim can't reproduce everything VS Code draws due to rendering, LSP, treesitter, ... so differences may occur.
 
 ## Supported Plugins
 
@@ -16,92 +22,53 @@ The colors follow VS Code's default **Dark Modern** and **Light Modern** themes:
 - [Git Signs](https://github.com/lewis6991/gitsigns.nvim)
 - [Indent Blankline](https://github.com/lukas-reineke/indent-blankline.nvim)
 - [LSP](https://github.com/neovim/nvim-lspconfig)
-- [Lualine](https://github.com/hoob3rt/lualine.nvim)
-- [Neotest](https://github.com/nvim-neotest/neotest)
+- [Lualine](https://github.com/nvim-lualine/lualine.nvim)
 - [Neogit](https://github.com/NeogitOrg/neogit)
+- [Neotest](https://github.com/nvim-neotest/neotest)
+- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
+- [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)
 - [NvimTree](https://github.com/kyazdani42/nvim-tree.lua)
+- [rainbow-delimiters](https://gitlab.com/HiPhish/rainbow-delimiters.nvim)
+- [Snacks.indent](https://github.com/folke/snacks.nvim/blob/main/docs/indent.md)
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 - [Trouble](https://github.com/folke/trouble.nvim)
-- [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
-- [nvim-compe](https://github.com/hrsh7th/nvim-compe)
-- [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)
 - [vim-illuminate](https://github.com/RRethy/vim-illuminate)
-- [rainbow-delimiters](https://gitlab.com/HiPhish/rainbow-delimiters.nvim)
 - [which-key](https://github.com/folke/which-key.nvim)
-- [Snacks.indent](https://github.com/folke/snacks.nvim/blob/main/docs/indent.md)
 
-### Differences from VS Code
+## Installation
 
-Neovim can't reproduce everything VS Code draws, so a few colors are approximations:
-
-- Colors with transparency in VS Code (search matches, diff lines, word highlights, whitespace, inlay hints, ...) are
-  blended onto the editor or widget background.
-- The matching bracket gets VS Code's faint background plus an underline instead of a border.
-- Unnecessary code (`DiagnosticUnnecessary`) gets a dimmed gray instead of VS Code's reduced opacity.
-- In diff mode a changed line is green on both sides; VS Code shows the old side red and the new side green.
-- YAML strings are blue in the light theme, including double-quoted ones that Light+ shows red.
-
-## ⬇️ Installation
-
-Install via package manager
+It should be a drop in replacement for [vscode.nvim](https://github.com/Mofiqul/vscode.nvim).
 
 ```lua
--- Packer:
-use 'Mofiqul/vscode.nvim'
+vim.pack.add({ "https://github.com/MartenBE/vscode.nvim-modern" })
+
+local vscode = require("vscode")
+
+vscode.setup({
+    -- E.g.
+    italic_comments = true,
+    underline_links = true,
+    -- ...
+})
+
+vscode.load()
 ```
 
-```vim
-" Vim-Plug:
-Plug 'Mofiqul/vscode.nvim'
-```
-
-## ⚠️ Warnings
-
-The theme is manipulating the treesitter highlight queries as follows:
-
-### JavaScript and TypeScript
-
-```query
-[
-  "export"
-] @keyword.import
-
-[
-  "break"
-] @keyword.repeat
-
-[
-  "break"
-] @keyword.conditional
-
-"async" @keyword.modifier
-```
-
-### Python
-
-```query
-"async" @keyword.modifier
-```
-
-`await` is control flow (pink) in VS Code while `async` is a modifier (blue). This
-mimics the behavior of VSCode's default theme more closely. Be aware that
-this is not a perfect solution but as far as we know, there is no better way to
-achieve this and most popular themes are doing the same thing.
-
-## 🚀 Usage
+## Usage
 
 ```lua
--- Lua:
 -- For dark theme (neovim's default)
-vim.o.background = 'dark'
+vim.o.background = "dark"
 -- For light theme
-vim.o.background = 'light'
+vim.o.background = "light"
 
-local c = require('vscode.colors').get_colors()
-require('vscode').setup({
+local vscode = require("vscode")
+local c = require("vscode.colors").get_colors()
+
+vscode.setup({
     -- Alternatively set style in setup
-    -- style = 'light'
+    -- style = "light"
 
     -- Enable transparent background
     transparent = true,
@@ -121,140 +88,85 @@ require('vscode').setup({
     -- Apply theme colors to terminal
     terminal_colors = true,
 
-    -- Override palette colors (see ./lua/vscode/colors.lua and "Palette" below).
+    -- Override palette colors (see `./lua/vscode/colors.lua`).
     -- This replaces every use of that palette color, not one highlight group.
     color_overrides = {
-        d_gray_150 = '#FFFFFF', -- dark theme line numbers and fold column
+        d_gray_150 = "#FFFFFF",
     },
 
-    -- Override highlight groups (see ./lua/vscode/theme.lua)
+    -- Override highlight groups (see `./lua/vscode/theme.lua`)
     group_overrides = {
-        -- this supports the same val table as vim.api.nvim_set_hl
-        -- use colors from this colorscheme by requiring vscode.colors!
+        -- This supports the same value table as `vim.api.nvim_set_hl`.
+        -- Use colors from this colorscheme by requiring `vscode.colors`!
         Cursor = { fg=c.d_blue_20, bg=c.d_green_70, bold=true },
     }
 })
--- require('vscode').load()
 
--- load the theme without affecting devicon colors.
-vim.cmd.colorscheme "vscode"
+vscode.load()
 ```
 
-If you are using [`lualine`](https://github.com/hoob3rt/lualine.nvim), you can also enable the provided theme:
+If you are using [`lualine`](https://github.com/nvim-lualine/lualine.nvim), you can also enable the provided theme:
 
 ```lua
-require('lualine').setup({
+require("lualine").setup({
     options = {
         -- ...
-        theme = 'vscode',
+        theme = "vscode",
         -- ...
     },
 })
 ```
-
-[nvim-bufferline.lua](https://github.com/akinsho/nvim-bufferline.lua) setup for exact match as screenshots
-
-```lua
-require("bufferline").setup({
-    options = {
-        buffer_close_icon = "",
-        close_command = "bdelete %d",
-        close_icon = "",
-        indicator = {
-          style = "icon",
-          icon = " ",
-        },
-        left_trunc_marker = "",
-        modified_icon = "●",
-        offsets = { { filetype = "NvimTree", text = "EXPLORER", text_align = "center" } },
-        right_mouse_command = "bdelete! %d",
-        right_trunc_marker = "",
-        show_close_icon = false,
-        show_tab_indicators = true,
-    },
-    highlights = {
-        fill = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLineNC" },
-        },
-        background = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLine" },
-        },
-        buffer_visible = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "Normal" },
-        },
-        buffer_selected = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "Normal" },
-        },
-        separator = {
-            fg = { attribute = "bg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLine" },
-        },
-        separator_selected = {
-            fg = { attribute = "fg", highlight = "Special" },
-            bg = { attribute = "bg", highlight = "Normal" },
-        },
-        separator_visible = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLineNC" },
-        },
-        close_button = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLine" },
-        },
-        close_button_selected = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "Normal" },
-        },
-        close_button_visible = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "Normal" },
-        },
-    },
-})
-```
-
-## Palette
-
-Every color in [`lua/vscode/colors.lua`](./lua/vscode/colors.lua) is named `<theme>_<family>_<rank>`:
-
-- **theme**: `d_` for the dark theme, `l_` for the light theme
-- **family**: one of `black`, `white`, `gray`, `red`, `brown`, `orange`, `yellow`, `green`, `blue`, `purple`, `pink`
-- **rank**: `10`, `20`, `30`, ... from darkest to lightest within that family
-
-For example `d_blue_100` is the keyword blue of the dark theme. `require('vscode.colors').get_colors()` returns both
-palettes regardless of `background`, so pick the one you need: `vim.o.background == 'dark' and c.d_blue_100 or c.l_blue_40`.
-
-> [!WARNING]
-> Older versions used semantic names such as `vscBack` or `vscLineNumber`. Those keys no longer exist; `color_overrides`
-> and `group_overrides` that use them must be updated to the new names.
 
 ## Switching theme
 
-```vim
-:lua require('vscode').load('light')
-:lua require('vscode').load('dark')
+```neovim
+:lua require("vscode").load("light")
 ```
 
-## 🍭 Extra folder
+```neovim
+:lua require("vscode").load("dark")
+```
 
-- [Alacritty](https://github.com/alacritty/alacritty) color scheme
-- [Foot](https://codeberg.org/dnkl/foot) color scheme
-- [fzf](https://junegunn.github.io/fzf/) color scheme
-- [galaxyline.nvim](https://github.com/glepnir/galaxyline.nvim) theme
-- [Ghostty](https://ghostty.org/) color scheme
-- [i3](https://i3wm.org/) and [Sway](https://swaywm.org/) color scheme
-- [Kitty](https://sw.kovidgoyal.net/kitty/) color scheme
-- Linux console color scheme
-- [WezTerm](https://wezfurlong.org/wezterm/) color scheme
-- [Windows Terminal](https://github.com/microsoft/terminal) color scheme
-- [Xresources](https://wiki.debian.org/Xresources) color scheme
-- [zathura](https://pwmt.org/projects/zathura/) color scheme
+## Warnings
 
-## Something is broken but I know how to fix it!
+The theme is manipulating the treesitter highlight queries as follows:
+
+### JavaScript, TypeScript and TSX (`after/queries/ecma`)
+
+```query
+[
+  "break"
+  "with"
+] @keyword.conditional
+
+"async" @keyword.modifier
+```
+
+### TypeScript and TSX
+
+```query
+(import_statement "type" @keyword.import)
+```
+
+### JSX and TSX
+
+Component tags (`<Foo>`, `<Foo.Bar>`, `<my-element>`) are captured as `@type`
+instead of `@tag`, matching VS Code's `support.class.component` coloring.
+Lowercase intrinsic elements (`<div>`) stay `@tag`.
+
+### Python
+
+```query
+"async" @keyword.modifier
+```
+
+`await` is control flow (pink) in VS Code while `async` is a modifier (blue).
+Likewise `break`, `with` and `import type` are control keywords (pink) in VS
+Code, where nvim-treesitter captures them as plain `@keyword`. This mimics the behavior of VSCode's default theme more closely. Be aware that
+this is not a perfect solution but as far as we know, there is no better way to
+achieve this and most popular themes are doing the same thing.
+
+## Something is broken, but I know how to fix it!
 
 Pull requests are welcome! Feel free to send one with an explanation!
 

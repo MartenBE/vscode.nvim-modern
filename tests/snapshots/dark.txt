@@ -539,7 +539,7 @@ SpellLocal, sp=#59A4F9, undercurl=true
 SpellRare, sp=#646695, undercurl=true
 Statement, fg=#C586C0
 StatusLine, bg=#181818, fg=#CCCCCC
-StatusLineNC, bg=#1F1F1F, fg=#9D9D9D
+StatusLineNC, bg=#181818, fg=#9D9D9D
 StorageClass, fg=#569CD6
 String, fg=#CE9178
 Structure, fg=#4EC9B0

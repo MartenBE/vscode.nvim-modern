@@ -1,16 +1,3 @@
 ;; extends
-[
-  "export"
-] @keyword.import
-
-[
-  "break"
-] @keyword.repeat
-
-[
-  "break"
-] @keyword.conditional
-
+; `import type { … }` — keyword.control in VS Code
 (import_statement "type" @keyword.import)
-
-"async" @keyword.modifier

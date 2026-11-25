@@ -2,7 +2,7 @@ name: tests
 
 on:
   push:
-    branches: 
+    branches:
       - main
   pull_request:
 
@@ -22,3 +22,15 @@ jobs:
 
       - name: Run colorscheme tests
         run: ./tests/run.sh
+
+  stylua:
+    name: stylua formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install StyLua
+        run: npm install --global @johnnymorganz/stylua-bin
+
+      - name: Check formatting
+        run: ./lint.sh

@@ -1,2 +1,2 @@
-local vscode = require('vscode')
+local vscode = require("vscode")
 vscode.load()

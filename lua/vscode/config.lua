@@ -16,7 +16,7 @@ config.opts = {}
 ---@param user_opts? table
 config.setup = function(user_opts)
     -- backwards compatibility: let users still set settings with global vars
-    local global_settings_opts = vim.tbl_extend('force', defaults, {
+    local global_settings_opts = vim.tbl_extend("force", defaults, {
         transparent = (vim.g.vscode_transparent == true or vim.g.vscode_transparent == 1),
         italic_comments = (vim.g.vscode_italic_comment == true or vim.g.vscode_italic_comment == 1),
         italic_inlayhints = (vim.g.vscode_italic_inlayhints == true or vim.g.vscode_italic_inlayhints == 1),
@@ -25,7 +25,7 @@ config.setup = function(user_opts)
     })
 
     -- but override global vars settings with setup() settings
-    config.opts = vim.tbl_extend('force', global_settings_opts, user_opts or {})
+    config.opts = vim.tbl_extend("force", global_settings_opts, user_opts or {})
 end
 
 -- initialize config
