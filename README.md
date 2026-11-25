@@ -127,45 +127,6 @@ require("lualine").setup({
 :lua require("vscode").load("dark")
 ```
 
-## Warnings
-
-The theme is manipulating the treesitter highlight queries as follows:
-
-### JavaScript, TypeScript and TSX (`after/queries/ecma`)
-
-```query
-[
-  "break"
-  "with"
-] @keyword.conditional
-
-"async" @keyword.modifier
-```
-
-### TypeScript and TSX
-
-```query
-(import_statement "type" @keyword.import)
-```
-
-### JSX and TSX
-
-Component tags (`<Foo>`, `<Foo.Bar>`, `<my-element>`) are captured as `@type`
-instead of `@tag`, matching VS Code's `support.class.component` coloring.
-Lowercase intrinsic elements (`<div>`) stay `@tag`.
-
-### Python
-
-```query
-"async" @keyword.modifier
-```
-
-`await` is control flow (pink) in VS Code while `async` is a modifier (blue).
-Likewise `break`, `with` and `import type` are control keywords (pink) in VS
-Code, where nvim-treesitter captures them as plain `@keyword`. This mimics the behavior of VSCode's default theme more closely. Be aware that
-this is not a perfect solution but as far as we know, there is no better way to
-achieve this and most popular themes are doing the same thing.
-
 ## Something is broken, but I know how to fix it!
 
 Pull requests are welcome! Feel free to send one with an explanation!

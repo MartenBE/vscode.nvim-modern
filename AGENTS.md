@@ -4,7 +4,7 @@ Guidance for coding agents working in this repository.
 
 ## What this is
 
-`vscode.nvim` is a Neovim colorscheme plugin: pure Lua, no build step, no dependencies. It ports VS Code's Dark Modern / Light Modern themes, with syntax colors from Dark+ / Light+. Plugin managers load the repo directly, so the repo layout *is* the runtime layout (`colors/`, `lua/`, `after/queries/`).
+`vscode.nvim` is a Neovim colorscheme plugin: pure Lua, no build step, no dependencies. It ports VS Code's Dark Modern / Light Modern themes, with syntax colors from Dark+ / Light+. Plugin managers load the repo directly, so the repo layout *is* the runtime layout (`colors/`, `lua/`).
 
 ## Commands
 
@@ -58,10 +58,7 @@ Load path: `colors/vscode.lua` (what `:colorscheme vscode` runs) → `require('v
   - `default_fg` is `editor.foreground`. `editor_background` is `d_black_30` / `l_white_30`, or `"NONE"` when `opts.transparent`. Use these locals, not raw keys, wherever the editor's foreground or background is meant, so `transparent = true` keeps working.
 - **`lua/vscode/utils.lua`**: maps the palette onto `vim.g.terminal_color_0..15` (VS Code's `terminal.ansi*`).
 - **`lua/lualine/themes/vscode.lua`**: a separate lualine theme with its **own hardcoded hex palette**, independent of `colors.lua`. It branches on `vim.o.background` when it is required. Lualine finds it through `runtimepath`, not through `require('vscode')`. Palette changes don't reach it on their own.
-- **`after/queries/{ecma,typescript,jsx,python}/highlights.scm`**: `;; extends` overrides that re-capture tokens nvim-treesitter colors differently from VS Code: `break`/`with`/`async`, TS `import type`, and JSX component tags as `@type`.
-  - `ecma` is inherited by javascript, typescript and tsx. tsx also inherits `typescript` and `jsx`.
-  - Keep a rule only while upstream still captures that token differently.
-  - Every rule is documented in the README's "Warnings" section. Keep the two in sync.
+- **Treesitter captures are used as-is.** The plugin ships no `after/queries` overrides. Where nvim-treesitter captures a token differently from VS Code's scopes (e.g. `async` as `@keyword.coroutine`, JSX components as `@tag`), accept upstream's capture. Don't add query overrides; color the existing capture groups in `theme.lua` instead.
 
 ### Light and dark
 
@@ -85,7 +82,7 @@ The tests only detect changes. `tests/snapshots/{dark,light}.txt` list every hig
 
 - `tests/snapshot.lua` wraps `vim.api.nvim_set_hl` *before* `vscode.theme` is first required, so the theme's `local hl` binding picks up the wrapper. That records only the groups this plugin sets. `nvim_get_hl(0, {})` would also return Neovim's built-in defaults and churn the snapshots on every Neovim upgrade.
 - It sets `vim.o.background` before loading. Assigning it afterwards would re-source the colorscheme and run the theme twice.
-- Not covered: the lualine theme, `vim.g.terminal_color_*`, and the treesitter queries.
+- Not covered: the lualine theme and `vim.g.terminal_color_*`.
 - `run.sh` only checks. Regenerating a snapshot is a deliberate manual step (commands above). In a PR that changes colors, the snapshot diff is what gets reviewed, so check that it contains only the changes you meant to make.
 
 ## Adding plugin support

@@ -1,2 +1,0 @@
-;; extends
-"async" @keyword.modifier
