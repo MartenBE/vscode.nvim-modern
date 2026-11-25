@@ -11,7 +11,7 @@ jobs:
     name: colorscheme snapshots
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Neovim
         run: |
@@ -27,7 +27,7 @@ jobs:
     name: stylua formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install StyLua
         run: npm install --global @johnnymorganz/stylua-bin
