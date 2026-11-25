@@ -3,7 +3,7 @@
 vscode.nvim-modern is a fork of [vscode.nvim](https://github.com/Mofiqul/vscode.nvim) with a few key differences:
 
 - **Faithful colors:** The palette tracks [VS Code's default Dark Modern and Light Modern themes](https://github.com/microsoft/vscode/tree/main/extensions/theme-defaults/themes) as closely as possible.
-- **AI-assisted syncing:** Keeping colors in sync with VS Code by hand is tedious and error-prone, so updates are made with AI assistance against VS Code's main branch. This repo tracks about +/- 800 highlights per light/dark theme. Treating VS Code as the single source of truth also avoids choice paralysis and endless tweaking over individual colors.
+- **AI-assisted syncing:** Keeping colors in sync with VS Code by hand is tedious and error-prone, so updates are made with AI assistance against VS Code's main branch. This repo tracks about +/- 800 highlights per light/dark theme. Treating VS Code as the single source of truth through AI also avoids choice paralysis and endless tweaking over individual colors. Highlights can always be adjusted manually if you prefer (see below).
 - **Snapshot testing:** Every change is captured in snapshots, making differences between commits easy to review and unintended changes easy to catch, for both humans and AI.
 - **Neovim only:** Support is limited to Neovim, since that's what the snapshot tests can verify.
 - **First-class light theme:** Light Modern gets the same care as Dark Modern rather than being an afterthought, thanks to a refactor that decouples variable names from their functionality.
