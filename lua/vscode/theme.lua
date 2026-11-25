@@ -547,6 +547,12 @@ theme.set_highlights = function(opts)
     hl(0, "GitSignsChangeLn", { link = "DiffChange" })
     hl(0, "GitSignsDeleteLn", { link = "DiffDelete" })
 
+    -- Lualine diff component (gitDecoration.*)
+    -- Checked before GitSigns*, so the status bar uses the file status colors instead of the gutter colors.
+    hl(0, "LuaLineDiffAdd", { fg = is_dark and c.d_green_70 or c.l_green_40, bg = "NONE" })
+    hl(0, "LuaLineDiffChange", { fg = is_dark and c.d_yellow_30 or c.l_yellow_10, bg = "NONE" })
+    hl(0, "LuaLineDiffDelete", { fg = is_dark and c.d_red_40 or c.l_red_40, bg = "NONE" })
+
     -- NvimTree (sideBar.*, list.*, gitDecoration.*)
     local sidebar_background = opts.disable_nvimtree_bg and editor_background
         or (is_dark and c.d_black_20 or c.l_white_10)

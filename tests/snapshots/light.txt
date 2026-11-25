@@ -398,6 +398,9 @@ LspSagaRenameBorder, fg=#DADADA
 LspSagaShTruncateLine, fg=#DADADA
 LspSagaSignatureHelpBorder, fg=#DADADA
 LspSignatureActiveParameter, bold=true, fg=#0066BF
+LuaLineDiffAdd, fg=#587C0C
+LuaLineDiffChange, fg=#895503
+LuaLineDiffDelete, fg=#AD0707
 Macro, fg=#0000FF
 MatchParen, bg=#E5EFE5, sp=#B9B9B9, underline=true
 MiniIconsAzure, fg=#0000FF
