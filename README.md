@@ -120,14 +120,11 @@ require("lualine").setup({
 })
 ```
 
-## Switching theme
+## Switching themes
 
-```neovim
-:lua require("vscode").load("light")
-```
-
-```neovim
-:lua require("vscode").load("dark")
+```lua
+require("vscode").load("light")
+require("vscode").load("dark")
 ```
 
 ## Something is broken, but I know how to fix it!
