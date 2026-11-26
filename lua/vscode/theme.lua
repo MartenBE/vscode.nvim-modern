@@ -47,6 +47,7 @@ theme.set_highlights = function(opts)
     hl(0, "PmenuMatch", { fg = is_dark and c.d_blue_170 or c.l_blue_80, bold = true })
     hl(0, "PmenuMatchSel", { fg = is_dark and c.d_blue_170 or c.l_blue_80, bold = true })
     hl(0, "PmenuSbar", { fg = "NONE", bg = is_dark and c.d_black_40 or c.l_white_10 })
+    -- scrollbarSlider.background
     hl(0, "PmenuThumb", { fg = "NONE", bg = is_dark and c.d_gray_90 or c.l_gray_160 })
     hl(0, "Question", { fg = is_dark and c.d_blue_100 or c.l_blue_40, bg = editor_background })
     hl(0, "Search", { fg = "NONE", bg = is_dark and c.d_brown_10 or c.l_orange_30 })

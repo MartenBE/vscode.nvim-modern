@@ -192,7 +192,7 @@ BlinkCmpMenu, bg=#202020, fg=#CCCCCC
 BlinkCmpMenuBorder, bg=#202020, fg=#424242
 BlinkCmpMenuSelection, bg=#04395E, fg=#FFFFFF
 BlinkCmpScrollBarGutter, bg=#202020
-BlinkCmpScrollBarThumb, bg=#444444
+BlinkCmpScrollBarThumb, bg=#434343
 BlinkCmpSignatureHelp, bg=#202020, fg=#CCCCCC
 BlinkCmpSignatureHelpActiveParameter, bold=true, fg=#2AAAFF
 BlinkCmpSignatureHelpBorder, bg=#202020, fg=#424242
@@ -497,7 +497,7 @@ PmenuMatch, bold=true, fg=#2AAAFF
 PmenuMatchSel, bold=true, fg=#2AAAFF
 PmenuSbar, bg=#202020
 PmenuSel, bg=#04395E, fg=#FFFFFF
-PmenuThumb, bg=#444444
+PmenuThumb, bg=#434343
 PreProc, fg=#C586C0
 Question, bg=#1F1F1F, fg=#569CD6
 QuickFixLine, bold=true
@@ -521,6 +521,7 @@ RenderMarkdownH5Bg, bg=#1F1F1F, bold=true
 RenderMarkdownH6, bold=true, fg=#569CD6
 RenderMarkdownH6Bg, bg=#1F1F1F, bold=true
 Repeat, fg=#C586C0
+ScrollView, bg=#434343
 Search, bg=#633315
 SignColumn, bg=#1F1F1F
 SnacksIndent, fg=#404040, nocombine=true
