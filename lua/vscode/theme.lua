@@ -618,6 +618,9 @@ theme.set_highlights = function(opts)
     hl(0, "SnacksIndent", { fg = is_dark and c.d_gray_70 or c.l_gray_170, bg = "NONE", nocombine = true })
     hl(0, "SnacksIndentScope", { fg = is_dark and c.d_gray_140 or c.l_gray_100, bg = "NONE", nocombine = true })
 
+    -- nvim-scrollview (scrollbarSlider.*)
+    hl(0, "ScrollView", { link = "PmenuThumb" })
+
     -- Neotest
     hl(0, "NeotestAdapterName", { fg = default_fg, bold = true })
     hl(0, "NeotestDir", { fg = is_dark and c.d_blue_100 or c.l_blue_40 })

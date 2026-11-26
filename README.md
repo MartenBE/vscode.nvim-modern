@@ -30,6 +30,7 @@ vscode.nvim-modern is a fork of [vscode.nvim](https://github.com/Mofiqul/vscode.
 - [Neotest](https://github.com/nvim-neotest/neotest)
 - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
 - [nvim-dap-ui](https://github.com/rcarriga/nvim-dap-ui)
+- [nvim-scrollview](https://github.com/dstein64/nvim-scrollview)
 - [NvimTree](https://github.com/kyazdani42/nvim-tree.lua)
 - [rainbow-delimiters](https://gitlab.com/HiPhish/rainbow-delimiters.nvim)
 - [Snacks.indent](https://github.com/folke/snacks.nvim/blob/main/docs/indent.md)
